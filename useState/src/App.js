@@ -1,10 +1,11 @@
 import React from "react";
+import ExerciseOne from './exercises/ExerciseOne';
 
 const App = () => {
     return (
         <>
-            <h1>React App!</h1>
-            <p>Welcome to a Webpack Babel React App</p>
+            <h1>The useState Hook</h1>
+            <ExerciseOne />
         </>
     );
 };
