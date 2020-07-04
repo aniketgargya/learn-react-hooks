@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
-    "test": "jest --watch"
+    "test": "jest --bail --watch"
   },
   "keywords": [],
   "author": "Aniket Gargya <gargya.aniket@gmail.com>",
@@ -14,8 +14,6 @@
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
-    "@testing-library/jest-dom": "^5.11.0",
-    "@testing-library/react": "^10.4.3",
     "babel-loader": "^8.1.0",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.1.0",
@@ -24,6 +22,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "generate-get-element-by-data-attribute": "^1.0.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

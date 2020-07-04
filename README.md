@@ -70,8 +70,7 @@ I wanted to learn Rust earlier this year and enjoyed using Rustlings https://git
 
 For building exercise tests we used:
 - Jest
-- React Testing Library
-- Jest Dom
+- React Testing Utils 
 
 For building the React app bundles we used:
 - Webpack
