@@ -183,7 +183,6 @@ describe("exercise two", () => {
 });
 
 import ExerciseThree, { CounterButtons } from "../src/exercises/ExerciseThree";
-// import ExerciseThree, { CounterButtons } from "../src/solutions/ExerciseThree";
 
 describe("exercise three", () => {
     it("counter buttons have names \"Increment\" and \"Decrement\"", () => {
