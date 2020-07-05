@@ -52,3 +52,20 @@ Requirements:
 - If the user clicks a button, the mood must change to the correct mood
 - If the mood is happy, the paragraph must container a smiley face and if the mood is sad, the paragraph must contain a frowny face.
 - A smiley face is :) and a frowny face is :(
+
+## Exercise Two
+In this exercise, your component will have two elements (besides the h2): an input and a paragraph. In the input, the user will type their name and as the user presses keys, the paragraph should update.
+
+Requirements:
+- When the component is first loaded, the input should have some kind of name, anything that isn't blank.
+- Whenever the user makes a change, the greeting should update.
+- If the name that was put as input is "Aniket", the greeting should say "Hello Aniket!".
+- The placeholder for the input should be "Name".
+
+<details>
+<summary>Hints</summary>
+<ul>
+    <li>The &lt;input /&gt; element has a value.</li>
+    <li>React has an onChange prop on some components.</li>
+</ul>
+</details>

@@ -1,7 +1,21 @@
+import React from 'react';
+import ReactDOM from "react-dom";
+import { act } from "react-dom/test-utils";
+import { generateGetElementByDataAttribute } from "generate-get-element-by-data-attribute";
+
 import ExerciseOne from "../src/exercises/ExerciseOne";
 
 let container;
 const getElementByTestId = generateGetElementByDataAttribute("testid");
+
+const setInputValue = (input, newValue) => {
+    const lastValue = input.value;
+    input.value = newValue;
+    const event = new Event("input", { bubbles: true });
+    const tracker = input._valueTracker;
+    if (tracker) tracker.setValue(lastValue);
+    input.dispatchEvent(event);
+};
 
 beforeEach(() => {
     container = document.createElement("div");
@@ -101,5 +115,67 @@ describe("exercise one", () => {
         });
 
         expect(moodText.textContent).toBe(":)");
+    });
+});
+
+import ExerciseTwo from "../src/exercises/ExerciseTwo";
+
+describe("exercise two", () => {
+    it("name input has placeholder of \"Name\"", () => {
+        act(() => {
+            ReactDOM.render(<ExerciseTwo />, container);
+        });
+
+        const nameInput = getElementByTestId(container, "name-input");
+
+        console.log(nameInput.placeholder);
+
+        expect(nameInput.placeholder).toBe("Name");
+    });
+
+    it("name input has a default value", () => {
+        act(() => {
+            ReactDOM.render(<ExerciseTwo />, container);
+        });
+
+        const nameInput = getElementByTestId(container, "name-input");
+
+        expect(nameInput.value).not.toBe("");
+    });
+
+    it("default greeting uses the default name", () => {
+        act(() => {
+            ReactDOM.render(<ExerciseTwo />, container);
+        });
+
+        const nameInput = getElementByTestId(container, "name-input");
+        const nameInputValue = nameInput.value;
+        const greeting = getElementByTestId(container, "greeting");
+
+        expect(greeting.textContent).toBe(`Hello ${nameInputValue}!`);
+    });
+
+    it("updating the name input updates the greeting", () => {
+        act(() => {
+            ReactDOM.render(<ExerciseTwo />, container);
+        });
+
+        const nameInput = getElementByTestId(container, "name-input");
+        const greeting = getElementByTestId(container, "greeting");
+
+        act(() => {
+            setInputValue(nameInput, "Aniket");
+        });
+        expect(greeting.textContent).toBe("Hello Aniket!");
+
+        act(() => {
+            setInputValue(nameInput, "Bob");
+        });
+        expect(greeting.textContent).toBe("Hello Bob!");
+
+        act(() => {
+            setInputValue(nameInput, "");
+        });
+        expect(greeting.textContent).toBe("Hello !");
     });
 });
