@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { generateGetElementByDataAttribute } from "generate-get-element-by-data-attribute";
@@ -7,6 +7,10 @@ import ExerciseOne from "../src/exercises/ExerciseOne";
 
 let container;
 const getElementByTestId = generateGetElementByDataAttribute("testid");
+
+const clickElement = element => {
+    element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+};
 
 const setInputValue = (input, newValue) => {
     const lastValue = input.value;
@@ -64,7 +68,7 @@ describe("exercise one", () => {
         const moodText = getElementByTestId(container, "mood-text");
 
         act(() => {
-            sadButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+            clickElement(sadButton);
         });
 
         expect(moodText.textContent).toBe(":(");
@@ -80,8 +84,8 @@ describe("exercise one", () => {
         const moodText = getElementByTestId(container, "mood-text");
 
         act(() => {
-            sadButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-            happyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+            clickElement(sadButton);
+            clickElement(happyButton);
         });
 
         expect(moodText.textContent).toBe(":)");
@@ -98,9 +102,9 @@ describe("exercise one", () => {
 
         act(() => {
             Array(3).fill(0).forEach(() => {
-                sadButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-                happyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-                sadButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+                clickElement(sadButton);
+                clickElement(happyButton);
+                clickElement(sadButton);
             });
         });
 
@@ -108,9 +112,9 @@ describe("exercise one", () => {
 
         act(() => {
             Array(3).fill(0).forEach(() => {
-                sadButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-                sadButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-                happyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+                clickElement(sadButton);
+                clickElement(sadButton);
+                clickElement(happyButton);
             });
         });
 
@@ -127,8 +131,6 @@ describe("exercise two", () => {
         });
 
         const nameInput = getElementByTestId(container, "name-input");
-
-        console.log(nameInput.placeholder);
 
         expect(nameInput.placeholder).toBe("Name");
     });
@@ -177,5 +179,101 @@ describe("exercise two", () => {
             setInputValue(nameInput, "");
         });
         expect(greeting.textContent).toBe("Hello !");
+    });
+});
+
+import ExerciseThree, { CounterButtons } from "../src/exercises/ExerciseThree";
+// import ExerciseThree, { CounterButtons } from "../src/solutions/ExerciseThree";
+
+describe("exercise three", () => {
+    it("counter buttons have names \"Increment\" and \"Decrement\"", () => {
+        act(() => {
+            ReactDOM.render(<ExerciseThree />, container);
+        });
+
+        const incrementButton = getElementByTestId(container, "increment-button");
+        const decrementButton = getElementByTestId(container, "decrement-button");
+
+        expect(incrementButton.textContent).toBe("Increment");
+        expect(decrementButton.textContent).toBe("Decrement");
+    });
+
+    it("count display starts at \"Count: 0\"", () => {
+        act(() => {
+            ReactDOM.render(<ExerciseThree />, container);
+        });
+
+        const countDisplay = getElementByTestId(container, "count-display")
+
+        expect(countDisplay.textContent).toBe("Count: 0")
+    });
+
+    it("increment button increases count by 1", () => {
+        act(() => {
+            ReactDOM.render(<ExerciseThree />, container);
+        });
+
+        const incrementButton = getElementByTestId(container, "increment-button");
+        const countDisplay = getElementByTestId(container, "count-display")
+
+        act(() => {
+            Array(9).fill(0).forEach(() => {
+                clickElement(incrementButton);
+            });
+        });
+
+        expect(countDisplay.textContent).toBe("Count: 9")
+    });
+
+    it("increment button increases count by 1", () => {
+        act(() => {
+            ReactDOM.render(<ExerciseThree />, container);
+        });
+
+        const decrementButton = getElementByTestId(container, "decrement-button");
+        const countDisplay = getElementByTestId(container, "count-display")
+
+        act(() => {
+            Array(7).fill(0).forEach(() => {
+                clickElement(decrementButton);
+            });
+        });
+
+        expect(countDisplay.textContent).toBe("Count: -7")
+    });
+
+    it("counter buttons component takes in only one prop called prop", () => {
+        const SolutionThree = () => {
+            const [count, setCount] = useState(0);
+
+            return (
+                <>
+                    <h2>Exercise Three</h2>
+                    <p data-testid="count-display-test">Count: {count}</p>
+                    <CounterButtons prop={setCount} />
+                </>
+            );
+        };
+        act(() => {
+            ReactDOM.render(<SolutionThree />, container);
+        });
+
+        const incrementButton = getElementByTestId(container, "increment-button");
+        const decrementButton = getElementByTestId(container, "decrement-button");
+        const countDisplay = getElementByTestId(container, "count-display-test")
+
+        act(() => {
+            Array(7).fill(0).forEach(() => {
+                clickElement(decrementButton);
+            });
+        });
+
+        act(() => {
+            Array(2).fill(0).forEach(() => {
+                clickElement(incrementButton);
+            });
+        });
+
+        expect(countDisplay.textContent).toBe("Count: -5")
     });
 });

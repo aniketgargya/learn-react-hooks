@@ -65,7 +65,25 @@ Requirements:
 <details>
 <summary>Hints</summary>
 <ul>
-    <li>The &lt;input /&gt; element has a value.</li>
+    <li>The &lt;input /&gt; element has a value attribute.</li>
     <li>React has an onChange prop on some components.</li>
+</ul>
+</details>
+
+## Exercise Three
+In this exercise, you will work on two components, ```<ExerciseThree / >``` and ```<CounterButtons />```. ```<ExerciseThree />``` will contain a display for the counter and will also render ```<ComponentButtons />``` as a child. ```<ComponentButtons />``` will render an increment and decrement button.
+
+Requirements:
+- When the component is first loaded, the paragraph containing the count should be "Count: 0". The two buttons should say "Increment" and "Decrement".
+- The count paragraph should be ```<p>Count: {count}</p>```. It's up to you how to define ```count```.
+- The increment and decrement buttons should increase the count by 1 and decrease the count by 1 respectively.
+- ```<ComponentButtons />``` component should only accept 1 prop. No more, no less. The prop must be called ```prop```.
+- By clicking the buttons of ```<ComponentButtons />```, the count in ```<ExerciseThree />``` should update.
+
+<details>
+<summary>Hints</summary>
+<ul>
+    <li>The setState function can also accept a function as an argument.</li>
+    <li>Component props can also be functions.</li>
 </ul>
 </details>

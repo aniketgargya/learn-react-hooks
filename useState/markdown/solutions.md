@@ -67,3 +67,51 @@ The tricky part is writing the ```<input />```.
 - We added ```placeholder="Name"``` because we were told to in the exercise.
 - We set the ```value={name}``` because we want the input field to show the name variable.
 - ```onChange={e => { setName(e.target.value); }}``` means that whenever the value in the input changes, we are going to accept the ```event``` data that HTML provides us with and set the name variable to a certain field of that ```event``` e. If you try ```console.log(e.target.value)```, you will see the value of the new name. Because we set the value of state to what the input typed, the component rerenders and the input's value becomes what ```e.target.value``` is.
+
+## Exercise Three
+### Reading the Problem
+We noticed that the child component needed to update the parent component. In React, the state should be stored in the top most component that needs to access it. In this case, it is ```<ExerciseThree />``` as it needs to display the value of ```count```.
+
+### Writing the Code
+```javscript
+export const CounterButtons = ({ prop }) => (
+    <>
+        <button
+            data-testid="increment-button"
+            onClick={() => { prop(count => count + 1); }}
+        >
+            Increment
+        </button>
+        <button
+            data-testid="decrement-button"
+            onClick={() => { prop(count => count - 1); }}
+        >
+            Decrement
+        </button>
+    </>
+);
+
+const ExerciseThree = () => {
+    const [count, setCount] = useState(0);
+
+    return (
+        <>
+            <h2>Exercise Three</h2>
+            <p data-testid="count-display">Count: {count}</p>
+            <CounterButtons prop={setCount} />
+        </>
+    );
+};
+```
+#### ```<ExerciseThree />```
+The component ```<ExerciseThree />``` contains a state for ```count``` and renders the ```Count: {count}``` in a paragraph element.
+
+It also passes the ```setCount``` function to ```<CounterButtons />```. This way, ```<CounterButtons />``` is able to change it's parents state and cause it to rerender.
+
+#### ```<CounterButtons />```
+Whenever the user clicks the Increment button, we can call the setCount function, that is named ```prop``` but instead of giving it a value, we use a function instead. We are accepting a parameter called ```count``` and simply return ```count + 1```. This way, ```<ChildButtons />``` doesn't need the current state value, just the ```setCount``` function.
+
+It is the exact same for the Decrement button, just that our function returns one less than the passed in value.
+
+### Notes
+The emphasis for this exercise was having one component be able to update another. In this case, it was having a child component (```<CounterButtons />```) update the parent component.
