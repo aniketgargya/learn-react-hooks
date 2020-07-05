@@ -37,7 +37,7 @@ Now this problem is not an easy one, especially if you've never done anything li
 
 This problem is extremely common when developing any kind of React application. It allows you to collect the user's input without having to query the input text box or other form fields. You may want to be familiar with this type of solution for when you use it in the future.
 
-## Writing the Code
+### Writing the Code
 ```javascript
 const ExerciseTwo = () => {
     const [name, setName] = useState("Aniket");
