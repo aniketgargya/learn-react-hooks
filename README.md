@@ -46,6 +46,11 @@ Each hook folder is part of the same React page, so you can keep ```npm start```
 ### Stuck?
 The ```src/solutions``` folder has possible example solutions for how to complete the exercise. Remember, this is just how we chose to solve the problem! You could complete the exercise completely differently and it would still be right as long as it passes the tests. ```markdown/solutions.md``` folder contains our throught proccess, explanations of our code, and extra notes on the hook/problem.
 
+### Testing Your Solutions
+To help us test your solutions, many elements in the code will have ```data-testid``` attributes. Please don't remove these as this is how we identify each element in our tests.
+
+Many components that are created are only used in a single file, but they still include ```export```. Leave them in their as that is how we ```import``` them in our tests.
+
 ## Setting Up For Best Experience
 You don't have to follow any of these, this was how we envisioned people learning from this repository.
 
